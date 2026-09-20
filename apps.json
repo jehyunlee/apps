@@ -1,7 +1,7 @@
 {
   "celestial-mechanics": {
     "repository": "jehyunlee/app_celestial",
-    "ref": "6afb75a522c8f84d7d0e8702e60ac5701b6e40a7",
+    "ref": "f1354b7c6a16b47c35b99d074ac6d0906b17e803",
     "title": "Celestial Mechanics",
     "description": "An interactive textbook about the Sun, Earth, Moon, gravity and orbits."
   },
