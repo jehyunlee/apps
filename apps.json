@@ -1,4 +1,10 @@
 {
+  "bakery": {
+    "repository": "jehyunlee/app_bakery",
+    "ref": "c598b7c8c4ddbd338ea3acf833e2e74d6c4cded4",
+    "title": "The Peculiar Bakery",
+    "description": "Rotate and flip pastries to choose the right box."
+  },
   "celestial-mechanics": {
     "repository": "jehyunlee/app_celestial",
     "ref": "f1354b7c6a16b47c35b99d074ac6d0906b17e803",

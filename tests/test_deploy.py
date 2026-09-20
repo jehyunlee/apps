@@ -85,12 +85,15 @@ class BuildSiteTests(unittest.TestCase):
             build_site.extract_public_archive(archive({
                 "app-sha/index.html": b"ok", "app-sha/js/app.js": b"ok",
                 "app-sha/og-image.jpg": b"ok", "app-sha/build.py": b"no",
+                "app-sha/manifest.webmanifest": b"{}", "app-sha/private.json": b"no",
                 "app-sha/assets/cat.png": b"ok", "app-sha/scripts/secret.py": b"no",
                 "app-sha/js/app.js.map": b"no", "app-sha/.env": b"no",
             }), destination, False)
             self.assertTrue((destination / "index.html").exists())
             self.assertTrue((destination / "og-image.jpg").exists())
             self.assertFalse((destination / "build.py").exists())
+            self.assertTrue((destination / "manifest.webmanifest").exists())
+            self.assertFalse((destination / "private.json").exists())
             self.assertTrue((destination / "js/app.js").exists())
             self.assertFalse((destination / "scripts").exists())
             self.assertFalse((destination / "js/app.js.map").exists())

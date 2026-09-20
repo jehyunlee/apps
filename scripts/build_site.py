@@ -58,7 +58,7 @@ def public_path(relative, escape):
     if any(part.startswith(".") for part in parts) or relative.suffix == ".map":
         return False
     if len(parts) == 1:
-        if relative.name == "index.html":
+        if relative.name in ("index.html", "manifest.webmanifest"):
             return True
         return relative.suffix in (".js", ".css", ".png", ".jpg", ".jpeg", ".webp", ".svg", ".ico")
     return parts[0] in {"css", "js", "assets"}
