@@ -7,8 +7,10 @@
   },
   "escape": {
     "repository": "jehyunlee/app_escape",
-    "npm_runtime": ["three"],
-    "ref": "990462a1f1887d60263e3ee26c1e7ca9fd0a5d80",
+    "npm_runtime": [
+      "three"
+    ],
+    "ref": "2364546cd258fb1cdf75f22b2a75f8fb27515214",
     "title": "Escape",
     "description": "Explore a magical castle and solve each room's puzzles."
   }
