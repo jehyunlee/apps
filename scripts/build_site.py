@@ -60,7 +60,7 @@ def public_path(relative, escape):
     if len(parts) == 1:
         if relative.name == "index.html":
             return True
-        return relative.suffix in (".js", ".css")
+        return relative.suffix in (".js", ".css", ".png", ".jpg", ".jpeg", ".webp", ".svg", ".ico")
     return parts[0] in {"css", "js", "assets"}
 
 
