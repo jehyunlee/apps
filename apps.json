@@ -1,4 +1,44 @@
 {
+  "history-korea-1": {
+    "repository": "jehyunlee/app_history_korea_1",
+    "ref": "a6212e8a7f6b8bf0b87b80bb3b2692d3c2f90e8b",
+    "path": "history_korea/1",
+    "public_dirs": ["korean_history_images"],
+    "title": "한국사 1 · 삼국시대까지",
+    "description": "선사시대부터 삼국시대까지의 역사"
+  },
+  "history-korea-2": {
+    "repository": "jehyunlee/app_history_korea_2",
+    "ref": "c56d94b0a08ddb4fa4f2a82c834b5bac17325063",
+    "path": "history_korea/2",
+    "public_dirs": ["images"],
+    "title": "한국사 2 · 통일신라",
+    "description": "통일신라와 발해, 후삼국 이야기"
+  },
+  "history-korea-3": {
+    "repository": "jehyunlee/app_history_korea_3",
+    "ref": "6d1d332c4b7a04bb68f71977815d70cb8f5f2023",
+    "path": "history_korea/3",
+    "public_dirs": ["images"],
+    "title": "한국사 3 · 고려시대",
+    "description": "우리 가족과 함께 떠나는 고려 시간여행"
+  },
+  "history-korea-4": {
+    "repository": "jehyunlee/app_history_korea_4",
+    "ref": "ce321d57647efa12ff47ba41d93cd156dab97fc5",
+    "path": "history_korea/4",
+    "public_dirs": ["images"],
+    "title": "한국사 4 · 조선시대 I",
+    "description": "조선의 건국과 전기의 역사"
+  },
+  "history-korea-5": {
+    "repository": "jehyunlee/app_history_korea_5",
+    "ref": "5c2b8b5e54c7a8dcea16519de5783a80522b99f2",
+    "path": "history_korea/5",
+    "public_dirs": ["images"],
+    "title": "한국사 5 · 조선시대 II",
+    "description": "조선 후기의 변화와 사람들"
+  },
   "bakery": {
     "repository": "jehyunlee/app_bakery",
     "ref": "0b1b81596fdc2fe4cbce8fb0c98e9b18b6918f7c",

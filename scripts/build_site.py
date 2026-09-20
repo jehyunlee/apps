@@ -11,6 +11,7 @@ import urllib.request
 from pathlib import Path, PurePosixPath
 
 SLUG_RE = re.compile(r"^[a-z][a-z0-9-]{0,62}$")
+SITE_PATH_RE = re.compile(r"^[a-z0-9][a-z0-9_-]*(?:/[a-z0-9][a-z0-9_-]*)*$")
 REPOSITORY_RE = re.compile(r"^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$")
 SHA_RE = re.compile(r"^[0-9a-f]{40}$")
 NPM_RE = re.compile(r"^(?:@[a-z0-9-]+/)?[a-z0-9][a-z0-9._-]*$")
@@ -25,11 +26,24 @@ def fail(message):
 def validate_manifest(manifest):
     if not isinstance(manifest, dict) or not manifest:
         fail("manifest must be a non-empty object")
+    paths = []
     for slug, app in manifest.items():
         if not isinstance(slug, str) or not SLUG_RE.fullmatch(slug):
             fail("invalid app slug")
         if not isinstance(app, dict):
             fail("invalid app entry")
+        target = app.get("path", slug)
+        if not isinstance(target, str) or not SITE_PATH_RE.fullmatch(target):
+            fail("invalid public path for " + slug)
+        if any(target == prior or target.startswith(prior + "/") or prior.startswith(target + "/") for prior in paths):
+            fail("overlapping public paths")
+        paths.append(target)
+        public_dirs = app.get("public_dirs", [])
+        if not isinstance(public_dirs, list) or any(
+            not isinstance(name, str) or not re.fullmatch(r"[a-z][a-z0-9_-]*", name)
+            or name in {"tests", "scripts", "node_modules"} for name in public_dirs
+        ):
+            fail("invalid public directory list")
         repository, ref = app.get("repository"), app.get("ref")
         if not isinstance(repository, str) or not REPOSITORY_RE.fullmatch(repository):
             fail("invalid repository for " + slug)
@@ -51,7 +65,7 @@ def safe_member_path(name):
     return path
 
 
-def public_path(relative, escape):
+def public_path(relative, escape, public_dirs=()):
     parts = relative.parts
     if not parts:
         return False
@@ -61,10 +75,10 @@ def public_path(relative, escape):
         if relative.name in ("index.html", "manifest.webmanifest"):
             return True
         return relative.suffix in (".js", ".css", ".png", ".jpg", ".jpeg", ".webp", ".svg", ".ico")
-    return parts[0] in {"css", "js", "assets"}
+    return parts[0] in {"css", "js", "assets", *public_dirs}
 
 
-def extract_public_archive(response, destination, escape):
+def extract_public_archive(response, destination, escape, public_dirs=()):
     """Copy only allowed regular files from a GitHub tarball without extraction."""
     total = 0
     root = None
@@ -91,7 +105,7 @@ def extract_public_archive(response, destination, escape):
                 continue
             relative = PurePosixPath(*path.parts[1:])
             # package metadata is needed transiently for escape's locked install.
-            keep = public_path(relative, escape) or (escape and relative.name in {"package.json", "package-lock.json"} and len(relative.parts) == 1)
+            keep = public_path(relative, escape, public_dirs) or (escape and relative.name in {"package.json", "package-lock.json"} and len(relative.parts) == 1)
             if not keep:
                 continue
             target = destination.joinpath(*relative.parts)
@@ -119,7 +133,7 @@ def stage_app(slug, app, app_directory):
     runtime = app.get("npm_runtime", [])
     url = "https://codeload.github.com/{}/tar.gz/{}".format(app["repository"], app["ref"])
     with urllib.request.urlopen(url, timeout=60) as response:
-        extract_public_archive(response, app_directory, bool(runtime))
+        extract_public_archive(response, app_directory, bool(runtime), app.get("public_dirs", []))
     if not (app_directory / "index.html").is_file():
         fail("missing index.html for " + slug)
     if runtime:
@@ -183,8 +197,16 @@ def build(manifest_path, output):
             source = hub / name
             if source.is_file():
                 shutil.copy2(source, temp_output / name)
+        for index in (hub / "collections").glob("*/index.html"):
+            category = index.parent.name
+            if index.is_symlink() or index.parent.is_symlink() or not SITE_PATH_RE.fullmatch(category):
+                fail("invalid collection index")
+            if any(app.get("path", slug) == category or category.startswith(app.get("path", slug) + "/") for slug, app in manifest.items()):
+                fail("collection overlaps an app")
+            (temp_output / category).mkdir(parents=True, exist_ok=True)
+            shutil.copy2(index, temp_output / category / "index.html")
         for slug, app in manifest.items():
-            stage_app(slug, app, temp_output / slug)
+            stage_app(slug, app, temp_output / app.get("path", slug))
         replace_output(temp_output, output)
     finally:
         if temp_root.exists():

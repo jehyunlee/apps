@@ -37,6 +37,44 @@ def archive(entries):
 
 
 class BuildSiteTests(unittest.TestCase):
+    def test_nested_paths_reject_traversal_and_collisions(self):
+        app = {"repository": "owner/repo", "ref": SHA_A, "title": "x", "description": "x"}
+        for invalid in ["../x", "/history/1", "history//1", "history/../1", "history/%2e%2e"]:
+            with self.assertRaises(ValueError):
+                build_site.validate_manifest({"history-one": {**app, "path": invalid}})
+        for paths in [("history/1", "history/1"), ("history", "history/1")]:
+            with self.assertRaises(ValueError):
+                build_site.validate_manifest({"one": {**app, "path": paths[0]}, "two": {**app, "path": paths[1]}})
+        with self.assertRaises(ValueError):
+            build_site.validate_manifest({"one": {**app, "public_dirs": ["../secrets"]}})
+
+    def test_collection_and_independent_nested_apps_build_together(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / "index.html").write_text("Jehyun's Apps")
+            category = root / "collections/history_korea"
+            category.mkdir(parents=True)
+            (category / "index.html").write_text("Five volumes")
+            manifest = {"history-one": {
+                "repository": "owner/repo", "ref": SHA_A, "title": "History",
+                "description": "x", "path": "history_korea/1",
+                "public_dirs": ["korean_history_images"]
+            }}
+            (root / "apps.json").write_text(json.dumps(manifest))
+            data = archive({
+                "root/index.html": b"History 1",
+                "root/korean_history_images/map.png": b"image",
+                "root/index.html.bak_phase1": b"not public",
+                "root/tests/secret.js": b"not public"
+            })
+            with mock.patch.object(build_site.urllib.request, "urlopen", return_value=data):
+                build_site.build(root / "apps.json", root / "_site")
+            self.assertEqual((root / "_site/history_korea/index.html").read_text(), "Five volumes")
+            self.assertEqual((root / "_site/history_korea/1/index.html").read_text(), "History 1")
+            self.assertTrue((root / "_site/history_korea/1/korean_history_images/map.png").exists())
+            self.assertFalse((root / "_site/history_korea/1/index.html.bak_phase1").exists())
+            self.assertFalse((root / "_site/history_korea/1/tests").exists())
+
     def test_rejects_symlink_archive(self):
         data = io.BytesIO()
         with tarfile.open(fileobj=data, mode="w:gz") as tar:
