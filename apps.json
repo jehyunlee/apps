@@ -1,7 +1,7 @@
 {
   "bakery": {
     "repository": "jehyunlee/app_bakery",
-    "ref": "c598b7c8c4ddbd338ea3acf833e2e74d6c4cded4",
+    "ref": "0b1b81596fdc2fe4cbce8fb0c98e9b18b6918f7c",
     "title": "The Peculiar Bakery",
     "description": "Rotate and flip pastries to choose the right box."
   },
