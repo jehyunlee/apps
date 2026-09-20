@@ -1,0 +1,40 @@
+name: Publish one app revision
+on:
+  workflow_call:
+    inputs:
+      app:
+        required: true
+        type: string
+      revision:
+        required: true
+        type: string
+    secrets:
+      APPS_DEPLOY_KEY:
+        required: true
+permissions:
+  contents: read
+jobs:
+  register:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the shared deployment registry
+        uses: actions/checkout@v4
+        with:
+          repository: jehyunlee/apps
+          ref: main
+          ssh-key: ${{ secrets.APPS_DEPLOY_KEY }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Set deployment author
+        run: |
+          git config user.name 'Apps Deploy'
+          git config user.email 'apps-deploy@users.noreply.github.com'
+      - name: Register tested app revision
+        env:
+          APP: ${{ inputs.app }}
+          REVISION: ${{ inputs.revision }}
+          SOURCE_REPOSITORY: ${{ github.repository }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python scripts/update_app.py --app "$APP" --repository "$SOURCE_REPOSITORY" --ref "$REVISION"

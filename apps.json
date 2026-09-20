@@ -1,0 +1,15 @@
+{
+  "magicat": {
+    "repository": "jehyunlee/app_magicat",
+    "ref": "38da1d45edb79becc6b15e823bdfcccc99bd0e6c",
+    "title": "Magic Cat",
+    "description": "Read the magic book and learn your cat's tastes."
+  },
+  "escape": {
+    "repository": "jehyunlee/app_escape",
+    "npm_runtime": ["three"],
+    "ref": "990462a1f1887d60263e3ee26c1e7ca9fd0a5d80",
+    "title": "Escape",
+    "description": "Explore a magical castle and solve each room's puzzles."
+  }
+}
