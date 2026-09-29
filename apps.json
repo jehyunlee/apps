@@ -78,7 +78,7 @@
   },
   "gyroscope": {
     "repository": "jehyunlee/app_gyroscope",
-    "ref": "79dfae2c992c18c2560952fa4db7f0abe759320f",
+    "ref": "81496e6bd8af781683df96692c68549d7167fe4b",
     "title": "Gyroscope Lab",
     "description": "Tune spin, tilt and gravity to watch precession and nutation in 3D."
   }
