@@ -75,5 +75,11 @@
     "ref": "4e449bbb50cb381867ac571e824e7766d2973909",
     "title": "Escape",
     "description": "Explore a magical castle and solve each room's puzzles."
+  },
+  "gyroscope": {
+    "repository": "jehyunlee/app_gyroscope",
+    "ref": "581118531915b1827d46fe57dace6500494f6d9e",
+    "title": "Gyroscope Lab",
+    "description": "Tune spin, tilt and gravity to watch precession and nutation in 3D."
   }
 }
