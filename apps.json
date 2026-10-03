@@ -84,7 +84,7 @@
   },
   "snowflake": {
     "repository": "jehyunlee/app_snowflake",
-    "ref": "636d3932bba46a16d32c56e47e3f5a83133e53fc",
+    "ref": "dbf71779461aadc7ff77b3563571fa56140dd4eb",
     "title": "How a Snowflake Grows",
     "description": "Change temperature, humidity, pressure and wind to shape a growing snow crystal."
   },
