@@ -99,5 +99,12 @@
     "ref": "f0758e7d5034e920373bb522f820441c58e2135b",
     "title": "Balloon Lab",
     "description": "Thin a patch of rubber, blow up the balloon and see why thin spots bulge and burst first."
+  },
+  "iron-oxydation": {
+    "repository": "jehyunlee/app_iron_oxydation",
+    "ref": "f3d3e7d119096c29e5aef8a416e6e701fb0c23e3",
+    "path": "iron_oxydation",
+    "title": "Rust, Burn or Melt",
+    "description": "Heat an iron sample with a torch and watch the heat balance decide whether it rusts, burns or melts."
   }
 }
