@@ -87,5 +87,11 @@
     "ref": "636d3932bba46a16d32c56e47e3f5a83133e53fc",
     "title": "How a Snowflake Grows",
     "description": "Change temperature, humidity, pressure and wind to shape a growing snow crystal."
+  },
+  "datamap": {
+    "repository": "jehyunlee/app_datamap",
+    "ref": "577e350cc165dbf2e16d811f4c70306a3c243fec",
+    "title": "Datamap",
+    "description": "A world globe redrawn by population, land, GDP, trade and military spending."
   }
 }
