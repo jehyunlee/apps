@@ -81,5 +81,11 @@
     "ref": "81496e6bd8af781683df96692c68549d7167fe4b",
     "title": "Gyroscope Lab",
     "description": "Tune spin, tilt and gravity to watch precession and nutation in 3D."
+  },
+  "snowflake": {
+    "repository": "jehyunlee/app_snowflake",
+    "ref": "636d3932bba46a16d32c56e47e3f5a83133e53fc",
+    "title": "How a Snowflake Grows",
+    "description": "Change temperature, humidity, pressure and wind to shape a growing snow crystal."
   }
 }
