@@ -93,5 +93,11 @@
     "ref": "577e350cc165dbf2e16d811f4c70306a3c243fec",
     "title": "Datamap",
     "description": "A world globe redrawn by population, land, GDP, trade and military spending."
+  },
+  "balloon": {
+    "repository": "jehyunlee/app_balloon",
+    "ref": "f0758e7d5034e920373bb522f820441c58e2135b",
+    "title": "Balloon Lab",
+    "description": "Thin a patch of rubber, blow up the balloon and see why thin spots bulge and burst first."
   }
 }
