@@ -37,6 +37,49 @@ def archive(entries):
 
 
 class BuildSiteTests(unittest.TestCase):
+    def test_collection_assets_copy_webp_images_only(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / "index.html").write_text("Hub")
+            category = root / "collections/history"
+            (category / "assets/thumbnails").mkdir(parents=True)
+            (category / "index.html").write_text("History")
+            (category / "assets/cover.webp").write_bytes(b"webp image")
+            (category / "assets/thumbnails/older.webp").write_bytes(b"older webp")
+            (category / "assets/app.js").write_text("not public")
+            (category / "assets/private.json").write_text("not public")
+            (category / "assets/.env").write_text("not public")
+            manifest = {"history-one": {
+                "repository": "owner/repo", "ref": SHA_A, "title": "History", "description": "x"
+            }}
+            (root / "apps.json").write_text(json.dumps(manifest))
+            with mock.patch.object(build_site.urllib.request, "urlopen", return_value=archive({"root/index.html": b"App"})):
+                build_site.build(root / "apps.json", root / "_site")
+            self.assertEqual((root / "_site/history/assets/cover.webp").read_bytes(), b"webp image")
+            self.assertEqual((root / "_site/history/assets/thumbnails/older.webp").read_bytes(), b"older webp")
+            self.assertFalse((root / "_site/history/assets/app.js").exists())
+            self.assertFalse((root / "_site/history/assets/private.json").exists())
+            self.assertFalse((root / "_site/history/assets/.env").exists())
+
+    def test_collection_assets_reject_symlinks(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / "index.html").write_text("Hub")
+            category = root / "collections/history"
+            assets = category / "assets"
+            assets.mkdir(parents=True)
+            (category / "index.html").write_text("History")
+            target = root / "private.webp"
+            target.write_bytes(b"private image")
+            (assets / "linked.webp").symlink_to(target)
+            manifest = {"history-one": {
+                "repository": "owner/repo", "ref": SHA_A, "title": "History", "description": "x"
+            }}
+            (root / "apps.json").write_text(json.dumps(manifest))
+            with mock.patch.object(build_site.urllib.request, "urlopen", return_value=archive({"root/index.html": b"App"})):
+                with self.assertRaisesRegex(ValueError, "collection assets contain symlink"):
+                    build_site.build(root / "apps.json", root / "_site")
+
     def test_nested_paths_reject_traversal_and_collisions(self):
         app = {"repository": "owner/repo", "ref": SHA_A, "title": "x", "description": "x"}
         for invalid in ["../x", "/history/1", "history//1", "history/../1", "history/%2e%2e"]:

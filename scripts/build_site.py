@@ -129,6 +129,27 @@ def copy_tree(source, destination):
             shutil.copy2(path, target)
 
 
+def copy_collection_assets(source, destination):
+    if source.is_symlink():
+        fail("collection assets contain symlink")
+    if not source.exists():
+        return
+    if not source.is_dir():
+        fail("invalid collection assets directory")
+    image_suffixes = {".png", ".jpg", ".jpeg", ".webp", ".svg", ".ico"}
+    for path in source.rglob("*"):
+        if path.is_symlink():
+            fail("collection assets contain symlink")
+        if not path.is_file():
+            continue
+        relative = PurePosixPath("assets", *path.relative_to(source).parts)
+        if not public_path(relative, False) or relative.suffix not in image_suffixes:
+            continue
+        target = destination.joinpath(*relative.parts)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(path, target)
+
+
 def stage_app(slug, app, app_directory):
     runtime = app.get("npm_runtime", [])
     url = "https://codeload.github.com/{}/tar.gz/{}".format(app["repository"], app["ref"])
@@ -205,6 +226,7 @@ def build(manifest_path, output):
                 fail("collection overlaps an app")
             (temp_output / category).mkdir(parents=True, exist_ok=True)
             shutil.copy2(index, temp_output / category / "index.html")
+            copy_collection_assets(index.parent / "assets", temp_output / category)
         for slug, app in manifest.items():
             stage_app(slug, app, temp_output / app.get("path", slug))
         replace_output(temp_output, output)
