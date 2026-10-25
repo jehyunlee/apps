@@ -1,4 +1,22 @@
 {
+  "spinvalvegmr": {
+    "repository": "jehyunlee/app_spinvalvegmr",
+    "ref": "5850357368f92943d22831a8bb7bf18d4c06c92c",
+    "title": "Spin Valve GMR",
+    "description": "Explore multilayer magnetization, hysteresis and giant magnetoresistance."
+  },
+  "dendrite": {
+    "repository": "jehyunlee/app_dendrite",
+    "ref": "d21d85efd4eb81018cae3c9e7eca4bb2b65715dc",
+    "title": "Dendrite Growth",
+    "description": "Explore dendritic solidification by changing crystal symmetry and undercooling."
+  },
+  "bayesiansubmarine": {
+    "repository": "jehyunlee/app_bayesiansubmarine",
+    "ref": "05822588229f4cabbb81d01669ade3afde780366",
+    "title": "Bayesian Submarine Search",
+    "description": "Search for a submarine while updating probabilities using Bayes' rule."
+  },
   "history-korea-1": {
     "repository": "jehyunlee/app_history_korea_1",
     "ref": "a6212e8a7f6b8bf0b87b80bb3b2692d3c2f90e8b",
