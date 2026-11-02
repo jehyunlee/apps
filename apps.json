@@ -127,7 +127,7 @@
   },
   "dataartifact": {
     "repository": "jehyunlee/app_dataartifact",
-    "ref": "97e17a65445dc4459e110a197379c4e78652bb19",
+    "ref": "56ef860e9f3b658877b7e4a9cd11351c89fd4382",
     "title": "Data Artifact Atlas",
     "description": "Map 78 data artifacts across seven stages, from metric design to feedback gaming, and check which ones a text discusses or risks."
   }
