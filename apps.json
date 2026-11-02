@@ -124,5 +124,11 @@
     "path": "iron_oxydation",
     "title": "Rust, Burn or Melt",
     "description": "Heat an iron sample with a torch and watch the heat balance decide whether it rusts, burns or melts."
+  },
+  "dataartifact": {
+    "repository": "jehyunlee/app_dataartifact",
+    "ref": "0203038ae71b29a55d1de0bb416f6c89e4f33a60",
+    "title": "Data Artifact Atlas",
+    "description": "Map 78 data artifacts across seven stages, from metric design to feedback gaming, and check which ones a text discusses or risks."
   }
 }
