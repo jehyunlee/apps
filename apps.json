@@ -1,4 +1,10 @@
 {
+  "lightpath": {
+    "repository": "jehyunlee/app_lightpath",
+    "ref": "d5ca115b1fcd7a8cd96a90afbeca2f3b6280e70b",
+    "title": "Light Path Lab",
+    "description": "Place prisms, lenses, mirrors and slits on an optical bench to focus, scatter, split and recombine light through 20 puzzle stages plus a free lab."
+  },
   "kist-maze": {
     "repository": "jehyunlee/app_kist_maze",
     "ref": "ae9e6c5bd4c2728a33867c81541a380261a43b16",
