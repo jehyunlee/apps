@@ -1,4 +1,11 @@
 {
+  "kist-maze": {
+    "repository": "jehyunlee/app_kist_maze",
+    "ref": "ae9e6c5bd4c2728a33867c81541a380261a43b16",
+    "path": "kist_maze",
+    "title": "KIST Maze",
+    "description": "Explore a new KIST-shaped 3D maze with the KIST 60 ball every time you play."
+  },
   "spinvalvegmr": {
     "repository": "jehyunlee/app_spinvalvegmr",
     "ref": "45033c288a02e779fe0d006d00c45329ac391fc6",
