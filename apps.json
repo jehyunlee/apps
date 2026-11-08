@@ -1,9 +1,9 @@
 {
   "lightpath": {
     "repository": "jehyunlee/app_lightpath",
-    "ref": "8bf9056cdce1a5e8865cda76b26f996129d868c5",
-    "title": "Light Path Lab",
-    "description": "Place prisms, lenses, mirrors, beam splitters, filters and slits on an optical bench to focus, scatter, split and recombine light through 30 puzzle stages plus a free lab."
+    "ref": "7ad15c4d964d73f29f3c171bf55c3a5a7b4fc1a1",
+    "title": "Physics Lab",
+    "description": "Place prisms, lenses, mirrors, beam splitters and filters on an optical bench to focus, split and retro-reflect light through 30 optics stages, then burn paper with focused light to drop steel balls, roll them down planks and strike pendulums onto load cells in 10 mechanics stages. Includes a free lab."
   },
   "kist-maze": {
     "repository": "jehyunlee/app_kist_maze",
