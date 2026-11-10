@@ -1,7 +1,7 @@
 {
   "lightpath": {
     "repository": "jehyunlee/app_lightpath",
-    "ref": "22197356334f7f82cf173e478b8354180c4bfe3e",
+    "ref": "dbb92ecb675b34d0f6f4e2765a78818d344980c4",
     "title": "Physics Lab",
     "description": "Place prisms, lenses, mirrors, beam splitters and filters on an optical bench to focus, split and retro-reflect light through 30 optics stages, then burn paper with focused light to drop steel balls, roll them down planks and strike pendulums onto load cells in 10 mechanics stages. Includes a free lab."
   },
